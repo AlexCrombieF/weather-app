@@ -1,0 +1,22 @@
+
+**weather_app.py**
+```python
+import requests
+import sys
+
+def get_weather(location):
+    api_key = 'your_api_key'
+    base_url = f'http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}'
+    response = requests.get(base_url)
+    return response.json()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python weather_app.py <location>")
+        sys.exit(1)
+    location = sys.argv[1]
+    weather_data = get_weather(location)
+    print(f"Location: {weather_data['location']['name']}")
+    print(f"Temperature: {weather_data['current']['temp_c']}°C")
+    print(f"Humidity: {weather_data['current']['humidity']}%")
+    print(f"Condition: {weather_data['current']['condition']['text']}")
